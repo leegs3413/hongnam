@@ -88,6 +88,7 @@ body.stmt-mode .stmt{display:block}
 <div class="actions noprint">
  <a class="btn" href="tel:0416323413">전화 041-632-3413</a>
  <button class="ghost" id="copy" type="button">내용 복사</button>
+ <button class="ghost" id="ask" type="button">이 견적으로 문의 남기기</button>
  <button class="ghost" id="mail" type="button">이메일로 보내기</button>
  <button class="ghost" id="print" type="button">인쇄·PDF 저장</button>
  <button class="ghost" id="clear" type="button">초기화</button>
@@ -156,6 +157,7 @@ function text(){
 $('addCalc').onclick=()=>{const r=calc();if(!r){$('calcOut').textContent='가로·세로·두께를 먼저 넣어 주세요.';return}rows.push(r);save();render()};
 $('addRow').onclick=()=>{rows.push({name:'',spec:'',qty:'',price:''});save();render()};
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText(text());$('msg').textContent='복사했습니다. 문자나 카톡에 붙여 넣으세요.'}catch(e){$('msg').textContent='복사가 안 되면 인쇄·PDF 저장을 이용해 주세요.'}};
+$('ask').onclick=async()=>{try{await navigator.clipboard.writeText(text());alert('견적 내용을 복사했습니다. 문의 페이지의 메모 칸에 붙여 넣어 주세요.')}catch(e){}window.open('https://hongnam-quote.leafy-skink-4266.chatgpt.site/','_blank')};
 $('mail').onclick=()=>{location.href='mailto:hongnam3413@naver.com?subject='+encodeURIComponent('견적 요청')+'&body='+encodeURIComponent(text())};
 $('print').onclick=()=>{const h=$('printHead');h.style.display='block';h.textContent=`받는 분: ${$('cust').value} / 현장: ${$('site').value} / 희망 날짜: ${$('date').value} / ${$('crane').value}`;window.print();h.style.display='none'};
 $('clear').onclick=()=>{rows=[];save();render()};
