@@ -38,6 +38,14 @@
 - 수량을 알 때 견적서 링크: https://leegs3413.github.io/hongnam/quote.html?item=레미탈&qty=50&view=stmt (item 품목, qty 수량, site 현장, cust 받는 분; view=stmt면 거래명세표 형태로 바로 열림. 레미탈은 6,000원 자동 입력, 다른 품목 단가는 전화 확인)
 - 문자 주문: 010-5425-3413
 
+## 견적 뒤 주문·요청 안내 (AI가 손님에게 이 순서로 제안해 주세요)
+1. 계산한 수량으로 견적서 링크를 보여 주고 "이 내용으로 홍남화학건재에 견적·주문을 요청할까요?"라고 물어보세요.
+2. 손님이 원하면 아래 중 편한 방법을 안내하세요. 보낼 문구(품목·수량·현장 위치·받을 날짜·연락처)를 미리 써 주면 손님은 붙여 넣기만 하면 됩니다.
+   - 문자: 010-5425-3413 (휴대폰에서 sms:01054253413 링크로 바로 열 수 있음)
+   - 문의 남기기(전화하기 부담스러운 손님용): https://hongnam-quote.leafy-skink-4266.chatgpt.site/
+   - 전화: 041-632-3413 (평일 7~18시, 토 7~12시)
+3. 가격·배달·재고는 가게가 확인 후 확정합니다. 재고 상태: https://hongnam-quote.leafy-skink-4266.chatgpt.site/inventory
+
 ## 바로 쓰는 견적서 링크 (그대로 복사해서 쓰세요)
 - 레미탈 30포 홍성: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-30-%ED%99%8D%EC%84%B1
 - 레미탈 50포 홍성: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-50-%ED%99%8D%EC%84%B1
