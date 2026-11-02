@@ -195,7 +195,7 @@ function setKind(){
  $('hint').textContent=k==='block'?'창문·문 자리는 빼고 넣어 주세요. 쌓기용 레미탈은 따로 필요합니다.':k.startsWith('brick')?'창문·문 자리는 빼고 넣어 주세요. 쌓기용 레미탈은 따로 필요합니다(0.5B 1㎡에 약 1~1.5포).':(k==='tteo'||k==='tile'||k==='joint')?'타일 붙일 면적을 넣어 주세요.':'';
  return it;
 }
-function bulk(el,on,q){if(!on){el.hidden=true;el.innerHTML='';return}el.hidden=false;const body=encodeURIComponent(`레미탈 ${q?fmt(q)+'포 ':''}대량 단가 견적 요청. 현장 위치: `);el.innerHTML='<b>200포를 넘는 주문은 대량 단가로 안내해 드립니다.</b><br>수량과 현장을 알려 주시면 바로 견적을 드립니다. 📞 041-632-3413<div class="actions"><a class="btn" href="tel:0416323413">전화 상담</a> <a class="btn" style="background:transparent;color:var(--accent)" href="sms:01054253413?body='+body+'">문자로 대량 견적 요청</a></div>'}
+function bulk(el,on,q){if(!on){el.hidden=true;el.innerHTML='';return}el.hidden=false;const body=encodeURIComponent(`레미탈 ${q?fmt(q)+'포 ':''}대량 단가 견적 요청. 현장 위치: `);el.innerHTML='<b>200포를 넘는 주문은 대량 단가로 안내해 드립니다.</b><br>세금계산서 거래는 부가세 10% 별도입니다. 수량과 현장을 알려 주시면 바로 견적을 드립니다. 📞 041-632-3413<div class="actions"><a class="btn" href="tel:0416323413">전화 상담</a> <a class="btn" style="background:transparent;color:var(--accent)" href="sms:01054253413?body='+body+'">문자로 대량 견적 요청</a></div>'}
 function calc(){
  const k=$('kind').value,it=setKind(),w=+$('w').value,l=+$('l').value,t=+$('t').value,loss=+$('loss').value||0,rate=+$('rate').value||0,bag=+$('bag').value||0;
  const off=()=>{$('calcOut').textContent='크기를 넣으면 결과가 나옵니다.';bulk($('bulk'),0);$('orderBtns').classList.remove('on');return null};
