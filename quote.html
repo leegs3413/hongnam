@@ -37,16 +37,20 @@ th{font-size:14px;color:var(--muted)}td input{padding:6px}td.num{text-align:righ
 @media (max-width:560px){.stmt .two{grid-template-columns:1fr}}
 body.stmt-mode .stmt{display:block}
 @media print{body.stmt-mode main>*:not(.stmt){display:none!important}.stmt{border:none;margin:0}}
+.bigcall{display:block;text-align:center;font-size:20px;padding:16px}
+.result.big{font-size:22px}
+input,select{font-size:20px}
 </style>
 </head>
 <body>
 <main>
 <p class="noprint"><a href="./">← 홍남화학건재 홈</a></p>
-<h1>자재 수량 계산 · 견적 초안</h1>
-<p class="sub">가로·세로·두께를 넣으면 필요한 포수를 계산해 견적 초안에 넣어 드립니다. 초안의 품목·수량·단가는 직접 고치거나 추가할 수 있습니다.</p>
+<h1>레미탈 몇 포 필요할까요?</h1>
+<p class="sub">크기만 넣으면 바로 알려 드려요. 잘 모르시면 전화 한 통이면 됩니다.</p>
+<p class="noprint"><a class="btn bigcall" href="tel:0416323413">📞 전화로 물어보기 041-632-3413</a></p>
 
 <section class="box noprint">
-<h2 style="margin-top:0">1. 수량 계산</h2>
+<h2 style="margin-top:0">크기 넣기</h2>
 <div class="grid">
  <div><label for="kind">작업</label>
   <select id="kind">
@@ -56,21 +60,22 @@ body.stmt-mode .stmt{display:block}
  <div><label for="w">가로 (m)</label><input id="w" type="number" inputmode="decimal" min="0" step="0.1" placeholder="예: 5"></div>
  <div><label for="l">세로·높이 (m)</label><input id="l" type="number" inputmode="decimal" min="0" step="0.1" placeholder="예: 4"></div>
  <div><label for="t" id="tlabel">두께 (cm)</label><input id="t" type="number" inputmode="decimal" min="0" step="0.1" placeholder="예: 3"></div>
- <div><label for="loss">여유분 (%)</label><input id="loss" type="number" min="0" step="1" value="10"></div>
 </div>
 <details style="margin-top:10px"><summary class="note">계산 기준 보기·바꾸기</summary>
  <div class="grid" style="margin-top:8px">
+  <div><label for="loss">여유분 (%)</label><input id="loss" type="number" min="0" step="1" value="10"></div>
   <div><label for="kgRemital">레미탈: 1㎡·두께 1cm당 kg</label><input id="kgRemital" type="number" step="0.5" value="18"></div>
   <div><label for="kgLevel">자동수평: 1㎡·두께 1mm당 kg</label><input id="kgLevel" type="number" step="0.1" value="1.7"></div>
  </div>
  <p class="note">제조사 시공 기준(일반미장용 40kg 1포 = 두께 18mm에 1.25~1.35㎡, 자동수평은 보통 1㎡·1mm당 1.6~1.8kg)으로 잡은 값입니다. 바탕면 상태, 물 배합, 시공 방법에 따라 달라지므로 실제 주문 수량은 전화로 확인해 주세요.</p>
 </details>
-<p class="result" id="calcOut">치수를 넣으면 결과가 나옵니다.</p>
-<div class="actions"><button id="addCalc" type="button">견적 초안에 넣기</button></div>
+<p class="result big" id="calcOut">크기를 넣으면 결과가 나옵니다.</p>
+<div class="actions"><a class="btn" href="tel:0416323413">이 수량으로 전화 주문</a> <a class="btn" id="smsBtn" style="background:transparent;color:var(--accent)" href="sms:01054253413">문자로 주문</a></div>
 </section>
 
-<section class="box" style="margin-top:20px">
-<h2 style="margin-top:0">2. 견적 초안</h2>
+<details class="box" id="pro" style="margin-top:20px">
+<summary style="font-weight:700;cursor:pointer">견적서·거래명세표 만들기 (업체용)</summary>
+<div class="actions noprint"><button id="addCalc" type="button">위 계산 결과를 견적서에 넣기</button></div>
 <div class="grid noprint" style="margin-bottom:10px">
  <div><label for="cust">받는 분 (업체·이름)</label><input id="cust" placeholder="선택"></div>
  <div><label for="site">현장 위치</label><input id="site" placeholder="예: 홍성 내포신도시"></div>
@@ -100,7 +105,7 @@ body.stmt-mode .stmt{display:block}
  <button id="toStmt" type="button">견적 확정 → 거래명세표 보기</button>
 </div>
 <p class="note" id="msg"></p>
-</section>
+</details>
 <section class="stmt" id="stmt" aria-label="거래명세표">
 <h2>거래명세표</h2><p class="cap" id="sCap"></p>
 <div class="two">
@@ -127,12 +132,12 @@ function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){
 function calc(){
  const k=$('kind').value,w=+$('w').value,l=+$('l').value,t=+$('t').value,loss=+$('loss').value||0;
  $('tlabel').textContent=k==='level'?'두께 (mm)':'두께 (cm)';
- if(!(w>0&&l>0&&t>0)){$('calcOut').textContent='치수를 넣으면 결과가 나옵니다.';return null}
+ if(!(w>0&&l>0&&t>0)){$('calcOut').textContent='크기를 넣으면 결과가 나옵니다.';return null}
  const area=w*l;let kg,bag,name,spec;
  if(k==='level'){kg=area*t*(+$('kgLevel').value||0);bag=25;name='자동수평 몰탈';spec='25kg'}
  else{kg=area*t*(+$('kgRemital').value||0);bag=40;name='레미탈';spec='40kg'}
  const need=Math.ceil(kg*(1+loss/100)/bag);
- $('calcOut').textContent=`면적 ${area.toFixed(1)}㎡ × 두께 ${t}${k==='level'?'mm':'cm'} → 약 ${fmt(kg)}kg, 여유 ${loss}% 포함 ${need}포 (참고용, 현장 상태에 따라 다름)${need>=700?' · 700포 이상은 공장 직송 가능, 별도 견적':''}`;
+ $('calcOut').innerHTML=`${name} <b>약 ${need}포</b> 필요해요${k==='level'?'':` (약 ${fmt(need*6000)}원)`}<br><span class="note">면적 ${area.toFixed(1)}㎡ × 두께 ${t}${k==='level'?'mm':'cm'}, 여유 ${loss}% 포함 · 참고용이라 현장 상태에 따라 달라요${need>=700?' · 700포 이상은 공장 직송, 별도 견적':''}</span>`;$('smsBtn').href='sms:01054253413?body='+encodeURIComponent(`${name} ${need}포 문의. 현장 위치: `);
  return {name,spec,qty:need,price:k==='level'?'':'6000',memo:`${w}m×${l}m×${t}${k==='level'?'mm':'cm'}`};
 }
 function render(){
@@ -180,11 +185,14 @@ $('sPrint').onclick=()=>window.print();
 $('sBack').onclick=()=>{document.body.classList.remove('stmt-mode');window.scrollTo(0,0)};
 $('vat').addEventListener('change',()=>{save();if(document.body.classList.contains('stmt-mode'))showStmt()});
 load();
-(function(){const q=new URLSearchParams(location.search);if(!q.has('w'))return;
+(function(){const q=new URLSearchParams(location.search);
+ if(q.has('qty')&&!q.has('w')){const it=q.get('item')||'레미탈';rows=[{name:it,spec:it==='레미탈'?'40kg':'',qty:q.get('qty'),price:it==='레미탈'?'6000':'',memo:''}];['cust','site','date'].forEach(k=>{if(q.get(k))$(k).value=q.get(k)});save();return}
+ if(!q.has('w'))return;
  const m={kind:'kind',w:'w',l:'l',t:'t',loss:'loss'};for(const k in m)if(q.get(k))$(m[k]).value=q.get(k);
  ['cust','site','date'].forEach(k=>{if(q.get(k))$(k).value=q.get(k)});
  const r=calc();if(r){rows=[r];save()}})();
 calc();render();
+if(new URLSearchParams(location.search).get('view')==='stmt'&&rows.length){$('pro').open=true;showStmt()}
 })();
 </script>
 </body>
