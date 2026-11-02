@@ -77,6 +77,17 @@ h1{font-size:30px;margin:0 0 4px}h2{font-size:20px;margin:36px 0 8px;border-top:
 a.call{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:8px}
 table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}th{width:7.5em;color:var(--muted);font-weight:600}
 ul{padding-left:20px}dt{font-weight:700;margin-top:14px}dd{margin:2px 0 0}
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 8px}
+.cta a.call{display:flex;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:10px}
+a.call.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.note2{margin:4px 0 0;font-size:15px}
+main{overflow-wrap:anywhere}
+.glance h2{border-top:none;padding-top:0}.glance-price{margin-top:8px}.glance-price th{width:auto}
+.bar{position:fixed;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);z-index:9}
+.bar a{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:8px;font-weight:700;text-decoration:none;background:var(--accent);color:#fff}
+.bar a+a{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+body{padding-bottom:76px}
+@media (min-width:760px){.bar{display:none}body{padding-bottom:0}}
 </style>
 <script type="application/ld+json">
 {
@@ -179,10 +190,13 @@ ul{padding-left:20px}dt{font-weight:700;margin-top:14px}dd{margin:2px 0 0}
 <main>
 <h1>홍남화학건재</h1>
 <p class="sub">충남 홍성 건축자재 판매점 · 레미탈 · 시멘트 · 초속경 · 자동수평<br><strong>5톤 크레인차 하차 포함 배달</strong> · 크레인을 따로 부를 필요 없음 · 남은 자재 반품 가능</p>
-<p><a class="call" href="tel:0416323413">전화 041-632-3413</a> <a class="call" href="quote.html" style="background:transparent;color:var(--accent);border:2px solid var(--accent)">수량 계산·견적서</a> <a class="call" href="https://hongnam-quote.leafy-skink-4266.chatgpt.site/" style="background:transparent;color:var(--accent);border:2px solid var(--accent)">견적 문의 남기기</a> <a class="call" href="https://hongnam-quote.leafy-skink-4266.chatgpt.site/inventory" style="background:transparent;color:var(--accent);border:2px solid var(--accent)">재고 현황 보기</a></p>
-
-<p>홍남화학건재는 1995년 개업해 30년 넘게 충남 홍성군 홍성읍에서 레미탈, 시멘트, 초속경, 자동수평 등 건축 미장 자재를 판매하는 건재상입니다. 최근 6년간 레미탈·시멘트 등 주력 미장 자재를 한 해 2만~5만 5천 포(연평균 약 3만 6천 포, 2021~2026년 판매장부 기준) 거래했으며, 철물점·건설사·현장 납품부터 개인 손님 한두 포까지 판매합니다. 700포 이상 대량 주문은 공장에서 현장으로 바로 보내 전국 어디든 받을 수 있습니다.</p>
-
+<nav class="cta">
+<a class="call" href="tel:0416323413">📞 전화하기</a>
+<a class="call ghost" href="sms:01054253413">💬 문자로 주문</a>
+<a class="call ghost" href="quote.html">🧮 수량·견적 보기</a>
+<a class="call ghost" href="https://hongnam-quote.leafy-skink-4266.chatgpt.site/inventory">📦 재고 현황</a>
+</nav>
+<p class="note2"><a href="https://hongnam-quote.leafy-skink-4266.chatgpt.site/">전화가 부담스러우면 견적 문의 남기기</a></p>
 <section class="glance" style="border:2px solid var(--accent);border-radius:10px;padding:14px 18px;margin:18px 0">
 <h2 style="margin-top:0">한눈에 보기 (2026년 11월 기준)</h2>
 <ul>
@@ -205,6 +219,9 @@ ul{padding-left:20px}dt{font-weight:700;margin-top:14px}dd{margin:2px 0 0}
 <tr><td>200포</td><td>1,200,000원</td><td>+ 보령·서산·당진·아산·공주 등 무료</td></tr>
 </table>
 </section>
+
+<p>홍남화학건재는 1995년 개업해 30년 넘게 충남 홍성군 홍성읍에서 레미탈, 시멘트, 초속경, 자동수평 등 건축 미장 자재를 판매하는 건재상입니다. 최근 6년간 레미탈·시멘트 등 주력 미장 자재를 한 해 2만~5만 5천 포(연평균 약 3만 6천 포, 2021~2026년 판매장부 기준) 거래했으며, 철물점·건설사·현장 납품부터 개인 손님 한두 포까지 판매합니다. 700포 이상 대량 주문은 공장에서 현장으로 바로 보내 전국 어디든 받을 수 있습니다.</p>
+
 
 <h2>가게 정보</h2>
 <table>
@@ -302,5 +319,7 @@ ul{padding-left:20px}dt{font-weight:700;margin-top:14px}dd{margin:2px 0 0}
 <dd>늘 재고를 두고 있습니다. 많은 양이 필요하면 하루 전에 연락 주세요.</dd>
 </dl>
 </main>
+<div class="bar"><a href="tel:0416323413">전화</a><a href="sms:01054253413">문자</a><a href="quote.html">견적</a></div>
+
 </body>
 </html>

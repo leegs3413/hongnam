@@ -40,6 +40,9 @@ body.stmt-mode .stmt{display:block}
 .bigcall{display:block;text-align:center;font-size:20px;padding:16px}
 .result.big{font-size:22px}
 input,select{font-size:20px}
+.grid > .wide{grid-column:1/-1}
+@media (max-width:560px){.actions .btn,.actions button{flex:1 1 100%;text-align:center;padding:14px}input,select{min-height:48px}}
+.after{display:none}.after.on{display:flex}
 </style>
 </head>
 <body>
@@ -52,7 +55,7 @@ input,select{font-size:20px}
 <section class="box noprint">
 <h2 style="margin-top:0">크기 넣기</h2>
 <div class="grid">
- <div><label for="kind">작업</label>
+ <div class="wide"><label for="kind">작업</label>
   <select id="kind">
    <option value="remital">미장·바닥 (레미탈 40kg)</option>
    <option value="level">바닥 수평 (자동수평 몰탈 25kg)</option>
@@ -70,7 +73,8 @@ input,select{font-size:20px}
  <p class="note">제조사 시공 기준(일반미장용 40kg 1포 = 두께 18mm에 1.25~1.35㎡, 자동수평은 보통 1㎡·1mm당 1.6~1.8kg)으로 잡은 값입니다. 바탕면 상태, 물 배합, 시공 방법에 따라 달라지므로 실제 주문 수량은 전화로 확인해 주세요.</p>
 </details>
 <p class="result big" id="calcOut">크기를 넣으면 결과가 나옵니다.</p>
-<div class="actions"><a class="btn" href="tel:0416323413">이 수량으로 전화 주문</a> <a class="btn" id="smsBtn" style="background:transparent;color:var(--accent)" href="sms:01054253413">문자로 주문</a></div>
+<div class="actions after" id="orderBtns"><a class="btn" href="tel:0416323413">이 수량으로 전화 주문</a> <a class="btn" id="smsBtn" style="background:transparent;color:var(--accent)" href="sms:01054253413">문자로 주문</a> <a class="btn" style="background:transparent;color:var(--accent)" href="https://hongnam-quote.leafy-skink-4266.chatgpt.site/">문의 남기기</a></div>
+<p class="note"><a href="https://hongnam-quote.leafy-skink-4266.chatgpt.site/inventory">오늘 재고 현황 보기</a></p>
 </section>
 
 <details class="box" id="pro" style="margin-top:20px">
@@ -132,12 +136,12 @@ function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){
 function calc(){
  const k=$('kind').value,w=+$('w').value,l=+$('l').value,t=+$('t').value,loss=+$('loss').value||0;
  $('tlabel').textContent=k==='level'?'두께 (mm)':'두께 (cm)';
- if(!(w>0&&l>0&&t>0)){$('calcOut').textContent='크기를 넣으면 결과가 나옵니다.';return null}
+ if(!(w>0&&l>0&&t>0)){$('calcOut').textContent='크기를 넣으면 결과가 나옵니다.';$('orderBtns').classList.remove('on');return null}
  const area=w*l;let kg,bag,name,spec;
  if(k==='level'){kg=area*t*(+$('kgLevel').value||0);bag=25;name='자동수평 몰탈';spec='25kg'}
  else{kg=area*t*(+$('kgRemital').value||0);bag=40;name='레미탈';spec='40kg'}
  const need=Math.ceil(kg*(1+loss/100)/bag);
- $('calcOut').innerHTML=`${name} <b>약 ${need}포</b> 필요해요${k==='level'?'':` (약 ${fmt(need*6000)}원)`}<br><span class="note">면적 ${area.toFixed(1)}㎡ × 두께 ${t}${k==='level'?'mm':'cm'}, 여유 ${loss}% 포함 · 참고용이라 현장 상태에 따라 달라요${need>=700?' · 700포 이상은 공장 직송, 별도 견적':''}</span>`;$('smsBtn').href='sms:01054253413?body='+encodeURIComponent(`${name} ${need}포 문의. 현장 위치: `);
+ $('calcOut').innerHTML=`${name} <b>약 ${need}포</b> 필요해요${k==='level'?'':` (약 ${fmt(need*6000)}원)`}<br><span class="note">면적 ${area.toFixed(1)}㎡ × 두께 ${t}${k==='level'?'mm':'cm'}, 여유 ${loss}% 포함 · 참고용이라 현장 상태에 따라 달라요${need>=700?' · 700포 이상은 공장 직송, 별도 견적':''}</span>`;$('orderBtns').classList.add('on');$('smsBtn').href='sms:01054253413?body='+encodeURIComponent(`${name} ${need}포 문의. 현장 위치: `);
  return {name,spec,qty:need,price:k==='level'?'':'6000',memo:`${w}m×${l}m×${t}${k==='level'?'mm':'cm'}`};
 }
 function render(){
