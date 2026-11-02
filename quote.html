@@ -61,7 +61,7 @@ input,select{font-size:20px}
     <option value="remital">바닥 미장 (레미탈 40kg)</option>
     <option value="level">바닥 수평 (자동수평 몰탈 25kg)</option>
     <option value="ascon">도로·마당 보수 (상온 아스콘 25kg)</option>
-    <option value="grout">기계 기초·틈 메우기 (무수축 몰탈 25kg)</option>
+    <option value="grout">기계 기초·틈 메우기 (무수축 몰탈)</option>
     <option value="quick">급한 보수·패칭 (초속경)</option>
     <option value="cement">직접 비벼 쓰기 (시멘트 40kg, 몰탈 1:3)</option>
    </optgroup>
@@ -163,7 +163,7 @@ const ITEMS={
  remitalw:{name:'레미탈',spec:'40kg',type:'vol',unit:'cm',rate:18,bag:40,price:'6000',loss:10,basis:'1㎡에 두께 1cm당 약 18kg. 벽은 보통 1.5~2cm'},
  level:{name:'자동수평 몰탈',spec:'25kg',type:'vol',unit:'mm',rate:1.7,bag:25,price:'',loss:10,basis:'1㎡에 두께 1mm당 약 1.6~1.8kg'},
  ascon:{name:'상온 아스콘',spec:'25kg',type:'vol',unit:'cm',rate:22,bag:25,price:'',loss:10,basis:'다진 뒤 1㎡에 두께 1cm당 약 22kg (다짐 정도에 따라 달라짐)'},
- grout:{name:'무수축 몰탈',spec:'25kg',type:'vol',unit:'cm',rate:21,bag:25,price:'',loss:10,basis:'채울 부피 1리터당 약 2.1kg (1㎡·1cm = 10리터)'},
+ grout:{name:'무수축 몰탈',spec:'',type:'vol',unit:'cm',rate:21,bag:null,price:'',loss:10,basis:'채울 부피 1리터당 약 2.1kg (1㎡·1cm = 10리터)'},
  hwangto:{name:'황토몰탈',spec:'25kg',type:'vol',unit:'cm',rate:16,bag:25,price:'',loss:10,basis:'1㎡에 두께 1cm당 약 16kg (제품마다 다름)'},
  tteo:{name:'떠붙임 몰탈',spec:'',type:'vol',unit:'cm',rate:18,bag:null,price:'',loss:10,basis:'떠붙임 두께 1cm당 1㎡에 약 18kg. 보통 1.5~2cm'},
  tile:{name:'타일 압착 시멘트',spec:'20kg',type:'vol',unit:'mm',rate:1.5,bag:20,price:'',loss:10,basis:'빗살 흙손 기준 1㎡에 두께 1mm당 약 1.5kg. 보통 3~5mm. 20kg·25kg 포가 있어요'},
