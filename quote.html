@@ -160,6 +160,7 @@ const $=id=>document.getElementById(id);
 const fmt=n=>Math.round(n).toLocaleString('ko-KR');
 const KEY='hongnam-quote-v1';
 let rows=[];
+let vatTouched=false;
 function save(){try{localStorage.setItem(KEY,JSON.stringify({rows,cust:$('cust').value,site:$('site').value,date:$('date').value,crane:$('crane').value,vat:$('vat').value}))}catch(e){}}
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){rows=d.rows||[];['cust','site','date','crane','vat'].forEach(k=>{if(d[k])$(k).value=d[k]})}}catch(e){}}
 const ITEMS={
@@ -222,7 +223,7 @@ function render(){
   tr.querySelector('button').onclick=()=>{rows.splice(i,1);save();render()};
   tb.appendChild(tr);
  });
- {const b=rows.find(r=>/레미탈/.test(r.name||'')&&+r.price>0&&(+r.qty||0)>200);bulk($('bulk2'),!!b,b&&+b.qty);}
+ {const b=rows.find(r=>/레미탈/.test(r.name||'')&&+r.price>0&&(+r.qty||0)>200);bulk($('bulk2'),!!b,b&&+b.qty);if(b&&!vatTouched&&$('vat').value!=='exc'){$('vat').value='exc';save()}}
  $('total').textContent=rows.length?`합계 ${fmt(sum)}원${unknown?' (단가 미정 품목 제외)':''} · ${$('vat').value==='exc'?'부가세 별도':'부가세 포함'}`:'';
 }
 function text(){
@@ -256,7 +257,7 @@ function showStmt(){
 $('toStmt').onclick=()=>{if(!rows.length){$('msg').textContent='견적 초안에 품목을 먼저 넣어 주세요.';return}showStmt()};
 $('sPrint').onclick=()=>window.print();
 $('sBack').onclick=()=>{document.body.classList.remove('stmt-mode');window.scrollTo(0,0)};
-$('vat').addEventListener('change',()=>{save();if(document.body.classList.contains('stmt-mode'))showStmt()});
+$('vat').addEventListener('change',()=>{vatTouched=true;save();if(document.body.classList.contains('stmt-mode'))showStmt()});
 load();
 const Q=(function(){let s=location.search.slice(1);for(let i=0;i<3;i++){try{const d=decodeURIComponent(s);if(d===s)break;s=d}catch(e){break}}
  const q=new URLSearchParams(s);let h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(e){}
