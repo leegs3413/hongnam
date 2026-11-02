@@ -81,6 +81,7 @@ input,select{font-size:20px}
     <option value="cement">직접 비벼 쓰기 (시멘트 40kg, 몰탈 1:3)</option>
     <option value="curb">경계석 (길이)</option>
     <option value="ditch">수로관 (길이)</option>
+    <option value="pipe">이중벽관 (길이)</option>
    </optgroup>
   </select></div>
  <div id="wbox"><label for="w" id="wlabel">가로 (m)</label><input id="w" type="number" inputmode="decimal" min="0" step="0.1" placeholder="예: 5"></div>
@@ -163,17 +164,18 @@ const ITEMS={
  level:{name:'자동수평 몰탈',spec:'25kg',type:'vol',unit:'mm',rate:1.7,bag:25,price:'',loss:10,basis:'1㎡에 두께 1mm당 약 1.6~1.8kg'},
  ascon:{name:'상온 아스콘',spec:'25kg',type:'vol',unit:'cm',rate:22,bag:25,price:'',loss:10,basis:'다진 뒤 1㎡에 두께 1cm당 약 22kg (다짐 정도에 따라 달라짐)'},
  grout:{name:'무수축 몰탈',spec:'25kg',type:'vol',unit:'cm',rate:21,bag:25,price:'',loss:10,basis:'채울 부피 1리터당 약 2.1kg (1㎡·1cm = 10리터)'},
- hwangto:{name:'황토몰탈',spec:'',type:'vol',unit:'cm',rate:16,bag:null,price:'',loss:10,basis:'1㎡에 두께 1cm당 약 16kg (제품마다 다름)'},
+ hwangto:{name:'황토몰탈',spec:'25kg',type:'vol',unit:'cm',rate:16,bag:25,price:'',loss:10,basis:'1㎡에 두께 1cm당 약 16kg (제품마다 다름)'},
  tteo:{name:'떠붙임 몰탈',spec:'',type:'vol',unit:'cm',rate:18,bag:null,price:'',loss:10,basis:'떠붙임 두께 1cm당 1㎡에 약 18kg. 보통 1.5~2cm'},
- tile:{name:'타일 압착 시멘트',spec:'',type:'vol',unit:'mm',rate:1.5,bag:null,price:'',loss:10,basis:'빗살 흙손 기준 1㎡에 두께 1mm당 약 1.5kg. 보통 3~5mm'},
+ tile:{name:'타일 압착 시멘트',spec:'20kg',type:'vol',unit:'mm',rate:1.5,bag:20,price:'',loss:10,basis:'빗살 흙손 기준 1㎡에 두께 1mm당 약 1.5kg. 보통 3~5mm. 20kg·25kg 포가 있어요'},
  joint:{name:'줄눈 시멘트',spec:'',type:'area',rate:0.3,bag:null,price:'',loss:10,basis:'300×300 타일, 줄눈 폭 3mm, 깊이 8mm 기준 1㎡에 약 0.3kg. 작은 타일·넓은 줄눈이면 더 듭니다'},
  quick:{name:'초속경',spec:'',type:'vol',unit:'cm',rate:20,bag:null,price:'',loss:10,basis:'1㎡에 두께 1cm당 약 20kg (제품마다 다름)'},
  block:{name:'시멘트 블록',spec:'390×190',type:'cnt',rate:13,price:'',loss:3,unitname:'장',basis:'390×190 블록, 줄눈 10mm 기준 1㎡에 약 13장'},
  brick05:{name:'벽돌',spec:'190×90×57',type:'cnt',rate:75,price:'',loss:3,unitname:'장',basis:'반장 쌓기(0.5B) 1㎡에 75장 (줄눈 10mm 표준)'},
  brick10:{name:'벽돌',spec:'190×90×57',type:'cnt',rate:149,price:'',loss:3,unitname:'장',basis:'한장 쌓기(1.0B) 1㎡에 149장 (줄눈 10mm 표준)'},
- styro:{name:'스티로폼',spec:'900×1800',type:'sheet',rate:1.62,price:'',loss:5,unitname:'장',basis:'한 장 900×1800mm = 1.62㎡ 기준 (규격이 다르면 바꿔 넣으세요)'},
+ styro:{name:'스티로폼',spec:'900×1800',type:'sheet',rate:1.62,price:'',loss:5,unitname:'장',basis:'보온판 한 장 900×1800mm = 1.62㎡ (외벽재 600×1200은 0.72㎡로 바꿔 넣으세요). 두께·밀도(1~4호)는 전화로 정해 주세요'},
  cement:{name:'시멘트',spec:'40kg',type:'vol',unit:'cm',rate:5.1,bag:40,price:'',loss:10,basis:'시멘트:모래 = 1:3 몰탈 기준 1㎡·1cm에 시멘트 약 5.1kg (모래는 따로 약 0.011㎥)'},
  curb:{name:'경계석',spec:'',type:'len',rate:1,price:'',loss:3,unitname:'개',basis:'1개 길이 1m 기준 (규격이 다르면 바꿔 넣으세요)'},
+ pipe:{name:'이중벽관',spec:'',type:'len',rate:6,price:'',loss:0,unitname:'본',basis:'1본 6m 기준 (4m 제품도 있어요, 바꿔 넣으세요). 관경(150~1000mm)은 전화로 정해 주세요'},
  ditch:{name:'수로관',spec:'',type:'len',rate:1,price:'',loss:3,unitname:'개',basis:'1개 길이 1m 기준 (규격이 다르면 바꿔 넣으세요)'}
 };
 let curKind='';
@@ -199,7 +201,7 @@ function calc(){
   detail=`면적 ${area.toFixed(1)}㎡${it.type==='vol'?` × ${k==='grout'?'깊이':'두께'} ${t}${it.unit}`:''}`}
  else if(it.type==='cnt'){qty=Math.ceil(area*rate*f);unitTxt='장';detail=`벽 면적 ${area.toFixed(1)}㎡`}
  else if(it.type==='sheet'){qty=Math.ceil(area/rate*f);unitTxt='장';detail=`면적 ${area.toFixed(1)}㎡`}
- else{qty=Math.ceil(w/rate*f);unitTxt='개';detail=`길이 ${w}m`}
+ else{qty=Math.ceil(w/rate*f);unitTxt=it.unitname||'개';detail=`길이 ${w}m`}
  const price=it.price&&unitTxt==='포'?+it.price:0;
  $('calcOut').innerHTML=`${it.name} <b>약 ${fmt(qty)}${unitTxt}</b> 필요해요${price?` (약 ${fmt(qty*price)}원)`:''}<br><span class="note">${detail}, 여유 ${loss}% 포함${kgTxt} · 참고용이라 현장 상태에 따라 달라요${price?'':' · 단가는 전화로 확인'}${unitTxt==='포'&&qty>=700?' · 700포 이상은 공장 직송, 별도 견적':''}</span>`;
  $('orderBtns').classList.add('on');$('smsBtn').href='sms:01054253413?body='+encodeURIComponent(`${it.name} ${fmt(qty)}${unitTxt} 문의. 현장 위치: `);
