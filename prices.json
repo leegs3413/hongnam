@@ -17,7 +17,7 @@
    "price_krw": 6000,
    "vat": "included",
    "qty_range": "1-200",
-   "note": "200포 초과 전화 협의; 세금계산서 발행 시 부가세 별도"
+   "note": "200포 초과·정기 거래처는 별도 단가(전화 안내); 세금계산서 발행 시 부가세 별도"
   }
  ],
  "coverage": {
@@ -36,7 +36,7 @@
   "factory_direct_min_bags": 700,
   "small_orders": "1톤 배달 가능 여부 전화 확인"
  },
- "returns": "남은 자재 반품 가능; 매장 반입은 반품, 현장 회수는 회수비 차감; 조건 전화 확인",
+ "returns": "남은 미개봉 자재 반품·재매입 가능; 조건 전화 확인",
  "links": {
   "quote": "https://leegs3413.github.io/hongnam/quote.html?kind=remital&w=5&l=4&t=3&site=홍성",
   "quote_by_qty": "https://leegs3413.github.io/hongnam/quote.html?item=레미탈&qty=50&view=stmt",
