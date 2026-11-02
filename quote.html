@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>자재 수량 계산·견적 초안 | 홍남화학건재 (충남 홍성)</title>
+<meta name="description" content="가로·세로·두께를 넣으면 레미탈·자동수평 몰탈 필요 포수를 계산하고, 직접 고칠 수 있는 견적서 초안을 만들어 줍니다. 홍남화학건재 041-632-3413.">
+<link rel="canonical" href="https://leegs3413.github.io/hongnam/quote.html">
+<style>
+:root{--bg:#fafaf7;--fg:#1d1d1b;--muted:#5f5f5a;--line:#e3e1da;--accent:#9a4a12;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eeede8;--muted:#a8a69e;--line:#33322e;--accent:#f0a060;--card:#1f1f1c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 -apple-system,"Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:26px;margin:0 0 4px}h2{font-size:19px;margin:28px 0 10px}
+.sub,.note{color:var(--muted)}.note{font-size:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+label{display:block;font-size:14px;color:var(--muted);margin-bottom:4px}
+input,select{font:inherit;width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+button,a.btn{font:inherit;font-weight:700;padding:10px 16px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
+button.ghost{background:transparent;color:var(--accent)}
+.result{margin-top:12px;font-weight:700}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px}td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:14px;color:var(--muted)}td input{padding:6px}td.num{text-align:right;white-space:nowrap}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.total{font-size:20px;font-weight:800;text-align:right;margin-top:10px}
+@media print{.noprint{display:none!important}body{background:#fff;color:#000}.box{border:none;padding:0}input{border:none;padding:0}}
+.stmt{display:none;background:#fff;color:#111;border:2px solid #333;padding:18px;margin-top:20px;font-size:14px}
+.stmt h2{text-align:center;letter-spacing:.6em;font-size:24px;margin:0 0 4px;border:none;padding:0}
+.stmt .cap{text-align:center;color:#555;margin:0 0 12px}
+.stmt table{min-width:0;font-size:13px}.stmt td,.stmt th{border:1px solid #555;padding:4px 6px;color:#111}
+.stmt th{background:#f1ede4;width:auto;font-weight:700;color:#111}
+.stmt .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stmt .big{font-size:18px;font-weight:800;border:2px solid #333;padding:8px;margin:10px 0;text-align:center}
+.stmt td.r{text-align:right}
+@media (max-width:560px){.stmt .two{grid-template-columns:1fr}}
+body.stmt-mode .stmt{display:block}
+@media print{body.stmt-mode main>*:not(.stmt){display:none!important}.stmt{border:none;margin:0}}
+</style>
+</head>
+<body>
+<main>
+<p class="noprint"><a href="./">← 홍남화학건재 홈</a></p>
+<h1>자재 수량 계산 · 견적 초안</h1>
+<p class="sub">가로·세로·두께를 넣으면 필요한 포수를 계산해 견적 초안에 넣어 드립니다. 초안의 품목·수량·단가는 직접 고치거나 추가할 수 있습니다.</p>
+
+<section class="box noprint">
+<h2 style="margin-top:0">1. 수량 계산</h2>
+<div class="grid">
+ <div><label for="kind">작업</label>
+  <select id="kind">
+   <option value="remital">미장·바닥 (레미탈 40kg)</option>
+   <option value="level">바닥 수평 (자동수평 몰탈 25kg)</option>
+  </select></div>
+ <div><label for="w">가로 (m)</label><input id="w" type="number" inputmode="decimal" min="0" step="0.1" placeholder="예: 5"></div>
+ <div><label for="l">세로·높이 (m)</label><input id="l" type="number" inputmode="decimal" min="0" step="0.1" placeholder="예: 4"></div>
+ <div><label for="t" id="tlabel">두께 (cm)</label><input id="t" type="number" inputmode="decimal" min="0" step="0.1" placeholder="예: 3"></div>
+ <div><label for="loss">여유분 (%)</label><input id="loss" type="number" min="0" step="1" value="10"></div>
+</div>
+<details style="margin-top:10px"><summary class="note">계산 기준 보기·바꾸기</summary>
+ <div class="grid" style="margin-top:8px">
+  <div><label for="kgRemital">레미탈: 1㎡·두께 1cm당 kg</label><input id="kgRemital" type="number" step="0.5" value="20"></div>
+  <div><label for="kgLevel">자동수평: 1㎡·두께 1mm당 kg</label><input id="kgLevel" type="number" step="0.1" value="1.7"></div>
+ </div>
+ <p class="note">대략적인 기준입니다. 바탕면 상태, 물 배합, 시공 방법에 따라 달라지므로 실제 주문 수량은 전화로 확인해 주세요.</p>
+</details>
+<p class="result" id="calcOut">치수를 넣으면 결과가 나옵니다.</p>
+<div class="actions"><button id="addCalc" type="button">견적 초안에 넣기</button></div>
+</section>
+
+<section class="box" style="margin-top:20px">
+<h2 style="margin-top:0">2. 견적 초안</h2>
+<div class="grid noprint" style="margin-bottom:10px">
+ <div><label for="cust">받는 분 (업체·이름)</label><input id="cust" placeholder="선택"></div>
+ <div><label for="site">현장 위치</label><input id="site" placeholder="예: 홍성 내포신도시"></div>
+ <div><label for="date">희망 날짜</label><input id="date" type="date"></div>
+ <div><label for="crane">하차</label><select id="crane"><option>크레인 하차 필요</option><option>지게차 있음</option><option>직접 하차</option><option>매장 방문 수령</option></select></div>
+</div>
+<p id="printHead" style="display:none"></p>
+<div class="tablewrap"><table>
+ <thead><tr><th style="width:34%">품목</th><th style="width:16%">규격</th><th style="width:12%">수량</th><th style="width:16%">단가(원)</th><th style="width:16%">금액(원)</th><th class="noprint"></th></tr></thead>
+ <tbody id="rows"></tbody>
+</table></div>
+<div class="actions noprint"><button class="ghost" id="addRow" type="button">+ 품목 추가</button></div>
+<p class="total" id="total"></p>
+<p class="note">단가를 비워 둔 품목은 수량·현장 거리에 따라 달라지므로 전화로 알려 드립니다. 배달: 홍성·내포·예산 기본, 그 밖의 지역은 수량에 따라 가능. 결제: 매장 카드·계좌이체.</p>
+<div class="actions noprint">
+ <a class="btn" href="tel:0416323413">전화 041-632-3413</a>
+ <button class="ghost" id="copy" type="button">내용 복사</button>
+ <button class="ghost" id="mail" type="button">이메일로 보내기</button>
+ <button class="ghost" id="print" type="button">인쇄·PDF 저장</button>
+ <button class="ghost" id="clear" type="button">초기화</button>
+</div>
+<div class="grid noprint" style="margin-top:14px">
+ <div><label for="vat">입력한 단가는</label><select id="vat"><option value="inc">부가세 포함 가격</option><option value="exc">부가세 별도 가격</option></select></div>
+</div>
+<div class="actions noprint">
+ <button id="toStmt" type="button">견적 확정 → 거래명세표 보기</button>
+</div>
+<p class="note" id="msg"></p>
+</section>
+<section class="stmt" id="stmt" aria-label="거래명세표">
+<h2>거래명세표</h2><p class="cap" id="sCap"></p>
+<div class="two">
+<table><tr><th colspan="2">공급받는자</th></tr><tr><th>상호</th><td id="sCust"></td></tr><tr><th>현장</th><td id="sSite"></td></tr><tr><th>납품일</th><td id="sDate"></td></tr><tr><th>하차</th><td id="sCrane"></td></tr></table>
+<table><tr><th colspan="2">공급자</th></tr><tr><th>등록번호</th><td>310-03-64668</td></tr><tr><th>상호·대표</th><td>홍남화학건재 · 이종은</td></tr><tr><th>주소</th><td>충남 홍성군 홍성읍 의사로36번길 21</td></tr><tr><th>업태·종목</th><td>도·소매 · 건축자재</td></tr><tr><th>전화</th><td>041-632-3413</td></tr></table>
+</div>
+<p class="big" id="sBig"></p>
+<table><thead><tr><th>No</th><th>품목</th><th>규격</th><th>수량</th><th>단가</th><th>공급가액</th><th>세액</th></tr></thead><tbody id="sRows"></tbody>
+<tfoot><tr><th colspan="5">합계</th><td class="r" id="sSup"></td><td class="r" id="sTax"></td></tr></tfoot></table>
+<p id="sNote" style="margin:10px 0 0"></p>
+<p style="margin:4px 0 0;color:#555">이 명세표는 홈페이지에서 만든 것으로, 홍남화학건재가 확인한 뒤 효력이 있습니다. 결제: 매장 카드·계좌이체.</p>
+<div class="actions noprint"><button id="sPrint" type="button">인쇄·PDF 저장</button><button class="ghost" id="sBack" type="button">견적으로 돌아가기</button></div>
+</section>
+<p class="note">홍남화학건재 · 충남 홍성군 홍성읍 의사로36번길 21 · 041-632-3413 · hongnam3413@naver.com · 월~금 07~18시, 토 07~12시</p>
+</main>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const fmt=n=>Math.round(n).toLocaleString('ko-KR');
+const KEY='hongnam-quote-v1';
+let rows=[];
+function save(){try{localStorage.setItem(KEY,JSON.stringify({rows,cust:$('cust').value,site:$('site').value,date:$('date').value,crane:$('crane').value,vat:$('vat').value}))}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){rows=d.rows||[];['cust','site','date','crane','vat'].forEach(k=>{if(d[k])$(k).value=d[k]})}}catch(e){}}
+function calc(){
+ const k=$('kind').value,w=+$('w').value,l=+$('l').value,t=+$('t').value,loss=+$('loss').value||0;
+ $('tlabel').textContent=k==='level'?'두께 (mm)':'두께 (cm)';
+ if(!(w>0&&l>0&&t>0)){$('calcOut').textContent='치수를 넣으면 결과가 나옵니다.';return null}
+ const area=w*l;let kg,bag,name,spec;
+ if(k==='level'){kg=area*t*(+$('kgLevel').value||0);bag=25;name='자동수평 몰탈';spec='25kg'}
+ else{kg=area*t*(+$('kgRemital').value||0);bag=40;name='레미탈';spec='40kg'}
+ const need=Math.ceil(kg*(1+loss/100)/bag);
+ $('calcOut').textContent=`면적 ${area.toFixed(1)}㎡ × 두께 ${t}${k==='level'?'mm':'cm'} → 약 ${fmt(kg)}kg, 여유 ${loss}% 포함 ${need}포`;
+ return {name,spec,qty:need,price:'',memo:`${w}m×${l}m×${t}${k==='level'?'mm':'cm'}`};
+}
+function render(){
+ const tb=$('rows');tb.innerHTML='';let sum=0,unknown=false;
+ rows.forEach((r,i)=>{
+  const amt=(+r.qty||0)*(+r.price||0);if(r.price==='')unknown=true;sum+=amt;
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><input data-k="name" value=""></td><td><input data-k="spec" value=""></td><td><input data-k="qty" type="number" min="0" inputmode="numeric"></td><td><input data-k="price" type="number" min="0" step="100" inputmode="numeric" placeholder="문의"></td><td class="num">${r.price===''?'-':fmt(amt)}</td><td class="noprint"><button class="ghost" type="button" aria-label="삭제" style="padding:4px 10px">×</button></td>`;
+  tr.querySelectorAll('input').forEach(inp=>{inp.value=r[inp.dataset.k]??'';inp.addEventListener('change',()=>{r[inp.dataset.k]=inp.value;save();render()})});
+  tr.querySelector('button').onclick=()=>{rows.splice(i,1);save();render()};
+  tb.appendChild(tr);
+ });
+ $('total').textContent=rows.length?`합계 ${fmt(sum)}원${unknown?' (단가 미정 품목 제외)':''} · 부가세 별도 여부는 문의`:'';
+}
+function text(){
+ let s=`[홍남화학건재 견적 요청]\n받는 분: ${$('cust').value}\n현장: ${$('site').value}\n희망 날짜: ${$('date').value}\n하차: ${$('crane').value}\n\n`;
+ rows.forEach(r=>{s+=`- ${r.name} ${r.spec} ${r.qty}개${r.price?` × ${fmt(r.price)}원`:''}${r.memo?` (${r.memo})`:''}\n`});
+ return s;
+}
+['kind','w','l','t','loss','kgRemital','kgLevel'].forEach(id=>$(id).addEventListener('input',calc));
+['cust','site','date','crane'].forEach(id=>$(id).addEventListener('change',save));
+$('addCalc').onclick=()=>{const r=calc();if(!r){$('calcOut').textContent='가로·세로·두께를 먼저 넣어 주세요.';return}rows.push(r);save();render()};
+$('addRow').onclick=()=>{rows.push({name:'',spec:'',qty:'',price:''});save();render()};
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(text());$('msg').textContent='복사했습니다. 문자나 카톡에 붙여 넣으세요.'}catch(e){$('msg').textContent='복사가 안 되면 인쇄·PDF 저장을 이용해 주세요.'}};
+$('mail').onclick=()=>{location.href='mailto:hongnam3413@naver.com?subject='+encodeURIComponent('견적 요청')+'&body='+encodeURIComponent(text())};
+$('print').onclick=()=>{const h=$('printHead');h.style.display='block';h.textContent=`받는 분: ${$('cust').value} / 현장: ${$('site').value} / 희망 날짜: ${$('date').value} / ${$('crane').value}`;window.print();h.style.display='none'};
+$('clear').onclick=()=>{rows=[];save();render()};
+function won(n){const d=['','일','이','삼','사','오','육','칠','팔','구'],u=['','십','백','천'],b=['','만','억'];n=Math.round(n);if(!n)return'영';let s='',i=0;while(n>0){const c=n%10000;if(c){let t='';String(c).split('').reverse().forEach((x,j)=>{if(+x)t=(+x===1&&j>0?'':d[+x])+u[j]+t});s=t+b[i]+s}n=Math.floor(n/10000);i++}return s}
+function showStmt(){
+ const inc=$('vat').value==='inc';let sup=0,tax=0,miss=0;const tb=$('sRows');tb.innerHTML='';
+ rows.forEach((r,i)=>{const q=+r.qty||0,p=r.price===''?null:+r.price;let a='',t='';
+  if(p===null)miss++;else{const amt=q*p;const sp=inc?Math.round(amt/1.1):amt;const tx=inc?amt-sp:Math.round(amt*0.1);sup+=sp;tax+=tx;a=fmt(sp);t=fmt(tx)}
+  const tr=document.createElement('tr');[i+1,r.name,r.spec,q?fmt(q):'',p===null?'문의':fmt(p),a,t].forEach((v,k)=>{const td=document.createElement('td');td.textContent=v;if(k>=3)td.className='r';tr.appendChild(td)});tb.appendChild(tr)});
+ const tot=sup+tax,d=new Date();
+ $('sCap').textContent=`작성일 ${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`;
+ $('sCust').textContent=$('cust').value||' ';$('sSite').textContent=$('site').value||' ';$('sDate').textContent=$('date').value||'협의';$('sCrane').textContent=$('crane').value;
+ $('sBig').textContent=`합계금액 일금 ${won(tot)}원정 (₩${fmt(tot)})`;
+ $('sSup').textContent=fmt(sup);$('sTax').textContent=fmt(tax);
+ $('sNote').textContent=miss?`단가 미정 품목 ${miss}개는 합계에서 빠졌습니다. 전화로 단가를 확인해 주세요.`:'';
+ document.body.classList.add('stmt-mode');$('stmt').scrollIntoView({behavior:'smooth'});
+}
+$('toStmt').onclick=()=>{if(!rows.length){$('msg').textContent='견적 초안에 품목을 먼저 넣어 주세요.';return}showStmt()};
+$('sPrint').onclick=()=>window.print();
+$('sBack').onclick=()=>{document.body.classList.remove('stmt-mode');window.scrollTo(0,0)};
+$('vat').addEventListener('change',()=>{save();if(document.body.classList.contains('stmt-mode'))showStmt()});
+load();calc();render();
+})();
+</script>
+</body>
+</html>
