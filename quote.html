@@ -79,7 +79,7 @@ input,select{font-size:20px}
     <option value="styro">단열 (스티로폼)</option>
    </optgroup>
    <optgroup label="토목 (관·수로관·경계석)">
-    <option value="curb">경계석 (길이)</option>
+    <option value="curb">경계석 (120·150mm × 1m, 길이)</option>
     <option value="ditch">수로관 (길이)</option>
     <option value="pipe">이중벽관 (길이)</option>
    </optgroup>
@@ -174,7 +174,7 @@ const ITEMS={
  brick10:{name:'벽돌',spec:'190×90×57',type:'cnt',rate:149,price:'',loss:3,unitname:'장',basis:'한장 쌓기(1.0B) 1㎡에 149장 (줄눈 10mm 표준)'},
  styro:{name:'스티로폼',spec:'900×1800',type:'sheet',rate:1.62,price:'',loss:5,unitname:'장',basis:'보온판 한 장 900×1800mm = 1.62㎡ (외벽재 600×1200은 0.72㎡로 바꿔 넣으세요). 두께·밀도(1~4호)는 전화로 정해 주세요'},
  cement:{name:'시멘트',spec:'40kg',type:'vol',unit:'cm',rate:5.1,bag:40,price:'',loss:10,basis:'시멘트:모래 = 1:3 몰탈 기준 1㎡·1cm에 시멘트 약 5.1kg (모래는 따로 약 0.011㎥)'},
- curb:{name:'경계석',spec:'',type:'len',rate:1,price:'',loss:3,unitname:'개',basis:'1개 길이 1m 기준 (규격이 다르면 바꿔 넣으세요)'},
+ curb:{name:'경계석',spec:'120mm·150mm × 1m',type:'len',rate:1,price:'',loss:3,unitname:'개',basis:'1개 길이 1m (폭 120mm·150mm 두 가지, 폭은 전화로 정해 주세요)'},
  pipe:{name:'이중벽관',spec:'',type:'len',rate:6,price:'',loss:0,unitname:'본',basis:'1본 6m 기준 (4m 제품도 있어요, 바꿔 넣으세요). 관경(150~1000mm)은 전화로 정해 주세요'},
  ditch:{name:'수로관',spec:'',type:'len',rate:1,price:'',loss:3,unitname:'개',basis:'1개 길이 1m 기준 (규격이 다르면 바꿔 넣으세요)'}
 };
