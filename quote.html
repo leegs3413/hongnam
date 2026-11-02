@@ -196,7 +196,7 @@ const Q=(function(){let s=location.search.slice(1);for(let i=0;i<3;i++){try{cons
  ['cust','site','date'].forEach(k=>{if(q.get(k))$(k).value=q.get(k)});
  const r=calc();if(r){rows=[r];save()}})();
 calc();render();
-if(Q.get('view')==='stmt'&&rows.length){$('pro').open=true;showStmt()}
+if((Q.get('view')==='stmt'||Q.has('qty'))&&rows.length){$('pro').open=true;showStmt()}else if(Q.has('w')&&rows.length){$('pro').open=true}
 })();
 </script>
 </body>
