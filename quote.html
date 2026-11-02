@@ -185,14 +185,18 @@ $('sPrint').onclick=()=>window.print();
 $('sBack').onclick=()=>{document.body.classList.remove('stmt-mode');window.scrollTo(0,0)};
 $('vat').addEventListener('change',()=>{save();if(document.body.classList.contains('stmt-mode'))showStmt()});
 load();
-(function(){const q=new URLSearchParams(location.search);
+const Q=(function(){let s=location.search.slice(1);for(let i=0;i<3;i++){try{const d=decodeURIComponent(s);if(d===s)break;s=d}catch(e){break}}
+ const q=new URLSearchParams(s);let h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(e){}
+ if(h&&!q.has('qty')&&!q.has('w')){const a=h.split(/[-_\/ ]/).filter(Boolean);if(a.length>=2&&+a[1]>0){q.set('item',a[0]);q.set('qty',a[1]);if(a[2])q.set('site',a[2]);q.set('view','stmt')}}
+ return q})();
+(function(){const q=Q;
  if(q.has('qty')&&!q.has('w')){const it=q.get('item')||'레미탈';rows=[{name:it,spec:it==='레미탈'?'40kg':'',qty:q.get('qty'),price:it==='레미탈'?'6000':'',memo:''}];['cust','site','date'].forEach(k=>{if(q.get(k))$(k).value=q.get(k)});save();return}
  if(!q.has('w'))return;
  const m={kind:'kind',w:'w',l:'l',t:'t',loss:'loss'};for(const k in m)if(q.get(k))$(m[k]).value=q.get(k);
  ['cust','site','date'].forEach(k=>{if(q.get(k))$(k).value=q.get(k)});
  const r=calc();if(r){rows=[r];save()}})();
 calc();render();
-if(new URLSearchParams(location.search).get('view')==='stmt'&&rows.length){$('pro').open=true;showStmt()}
+if(Q.get('view')==='stmt'&&rows.length){$('pro').open=true;showStmt()}
 })();
 </script>
 </body>

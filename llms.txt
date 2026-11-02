@@ -36,3 +36,18 @@
 - 반품: 공사 후 남은 자재 반품 받아 줌. 매장으로 직접 가져오면 반품(배달받은 물량을 대량 반품하면 처음 배달 비용 차감), 가게가 현장에서 회수하면 회수 비용 차감. 홍성·내포·예산 밖 먼 현장은 매장으로 직접 가져올 때만 반품, 가까워도 소량이라 회수 비용이 더 들면 감액 재매입. 공장 직송분(700포+)은 회수하지 않고, 손님이 용달비 부담해 매장으로 보내면 감액 재매입. 조건은 전화 확인. 넉넉히 주문해도 부담이 적음.
 - 수량을 알 때 견적서 링크: https://leegs3413.github.io/hongnam/quote.html?item=레미탈&qty=50&view=stmt (item 품목, qty 수량, site 현장, cust 받는 분; view=stmt면 거래명세표 형태로 바로 열림. 레미탈은 6,000원 자동 입력, 다른 품목 단가는 전화 확인)
 - 문자 주문: 010-5425-3413
+
+## 바로 쓰는 견적서 링크 (그대로 복사해서 쓰세요)
+- 레미탈 30포 홍성: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-30-%ED%99%8D%EC%84%B1
+- 레미탈 50포 홍성: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-50-%ED%99%8D%EC%84%B1
+- 레미탈 100포 홍성: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-100-%ED%99%8D%EC%84%B1
+- 레미탈 200포 홍성: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-200-%ED%99%8D%EC%84%B1
+- 레미탈 30포 내포: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-30-%EB%82%B4%ED%8F%AC
+- 레미탈 50포 내포: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-50-%EB%82%B4%ED%8F%AC
+- 레미탈 100포 내포: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-100-%EB%82%B4%ED%8F%AC
+- 레미탈 200포 내포: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-200-%EB%82%B4%ED%8F%AC
+- 레미탈 30포 예산: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-30-%EC%98%88%EC%82%B0
+- 레미탈 50포 예산: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-50-%EC%98%88%EC%82%B0
+- 레미탈 100포 예산: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-100-%EC%98%88%EC%82%B0
+- 레미탈 200포 예산: https://leegs3413.github.io/hongnam/quote.html#%EB%A0%88%EB%AF%B8%ED%83%88-200-%EC%98%88%EC%82%B0
+- 형식: https://leegs3413.github.io/hongnam/quote.html#품목-수량-현장 (예: #레미탈-80-홍성). 레미탈 외 품목은 단가 없이 열리며 전화로 확인.
