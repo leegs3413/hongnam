@@ -68,7 +68,7 @@ input,select{font-size:20px}
    <optgroup label="타일 (바닥·벽)">
     <option value="tteo">타일 떠붙임 (떠붙임 몰탈 40kg)</option>
     <option value="tile">타일 압착 (타일 압착 시멘트)</option>
-    <option value="joint">타일 줄눈 (줄눈 시멘트)</option>
+    <option value="joint">타일 줄눈 (줄눈 시멘트 25kg)</option>
    </optgroup>
    <optgroup label="벽 작업">
     <option value="remitalw">벽 미장 (레미탈 40kg)</option>
@@ -167,7 +167,7 @@ const ITEMS={
  hwangto:{name:'황토몰탈',spec:'25kg',type:'vol',unit:'cm',rate:16,bag:25,price:'',loss:10,basis:'1㎡에 두께 1cm당 약 16kg (제품마다 다름)'},
  tteo:{name:'떠붙임 몰탈',spec:'40kg',type:'vol',unit:'cm',rate:18,bag:40,price:'',loss:10,basis:'떠붙임 두께 1cm당 1㎡에 약 18kg. 보통 1.5~2cm'},
  tile:{name:'타일 압착 시멘트',spec:'20kg',type:'vol',unit:'mm',rate:1.5,bag:20,price:'',loss:10,basis:'빗살 흙손 기준 1㎡에 두께 1mm당 약 1.5kg. 보통 3~5mm. 20kg·25kg 포가 있어요'},
- joint:{name:'줄눈 시멘트',spec:'',type:'area',rate:0.3,bag:null,price:'',loss:10,basis:'300×300 타일, 줄눈 폭 3mm, 깊이 8mm 기준 1㎡에 약 0.3kg. 작은 타일·넓은 줄눈이면 더 듭니다'},
+ joint:{name:'줄눈 시멘트',spec:'25kg',type:'area',rate:0.3,bag:25,price:'',loss:10,basis:'300×300 타일, 줄눈 폭 3mm, 깊이 8mm 기준 1㎡에 약 0.3kg. 작은 타일·넓은 줄눈이면 더 듭니다'},
  quick:{name:'초속경',spec:'25kg',type:'vol',unit:'cm',rate:20,bag:25,price:'',loss:10,basis:'1㎡에 두께 1cm당 약 20kg (제품마다 다름)'},
  block:{name:'시멘트 블록',spec:'390×190',type:'cnt',rate:13,price:'',loss:3,unitname:'장',basis:'390×190 블록, 줄눈 10mm 기준 1㎡에 약 13장'},
  brick05:{name:'벽돌',spec:'190×90×57',type:'cnt',rate:75,price:'',loss:3,unitname:'장',basis:'반장 쌓기(0.5B) 1㎡에 75장 (줄눈 10mm 표준)'},
@@ -183,7 +183,7 @@ function setKind(){
  const k=$('kind').value,it=ITEMS[k]||ITEMS.remital;
  if(k!==curKind){curKind=k;$('rate').value=it.rate;$('bag').value=it.bag||'';$('loss').value=it.loss;$('basis').textContent='기준: '+it.basis+'. 바탕면·시공 방법에 따라 달라지니 최종 수량은 전화로 확인해 주세요.'}
  const show=(id,on)=>{$(id).style.display=on?'':'none'};
- show('lbox',it.type!=='len');show('tbox',it.type==='vol');show('bag',it.type==='vol');show('baglabel',it.type==='vol');
+ show('lbox',it.type!=='len');show('tbox',it.type==='vol');show('bag',it.type==='vol'||it.type==='area');show('baglabel',it.type==='vol'||it.type==='area');
  $('wlabel').textContent=it.type==='len'?'총 길이 (m)':'가로 (m)';
  $('llabel').textContent=k.startsWith('brick')||k==='block'||k==='styro'||k==='remitalw'||k==='hwangto'||k==='tteo'||k==='tile'||k==='joint'?'높이 (m)':'세로 (m)';
  $('tlabel').textContent=it.unit==='mm'?'두께 (mm)':(k==='grout'?'채울 깊이 (cm)':'두께 (cm)');
