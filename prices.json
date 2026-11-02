@@ -1,0 +1,46 @@
+{
+ "shop": "홍남화학건재",
+ "as_of": "2026-11",
+ "source": "https://leegs3413.github.io/hongnam/",
+ "phone": "041-632-3413",
+ "sms": "010-5425-3413",
+ "address": "충청남도 홍성군 홍성읍 의사로36번길 21",
+ "hours": {
+  "mon_fri": "07:00-18:00",
+  "sat": "07:00-12:00",
+  "sun": "closed (delivery possible by order size)"
+ },
+ "prices": [
+  {
+   "item": "레미탈",
+   "unit": "40kg 포",
+   "price_krw": 6000,
+   "vat": "included",
+   "qty_range": "1-200",
+   "note": "200포 초과 전화 협의; 세금계산서 발행 시 부가세 별도"
+  }
+ ],
+ "coverage": {
+  "레미탈_kg_per_m2_per_cm": 18,
+  "자동수평_kg_per_m2_per_mm": 1.7,
+  "margin": 1.1,
+  "formula_remital_bags": "ceil(w_m*l_m*t_cm*18/40*1.1)"
+ },
+ "delivery": {
+  "truck": "5톤 크레인차, 현장 하차 포함",
+  "free_min_bags": {
+   "홍성 읍내·금마·내포": 50,
+   "홍성 외곽(서부·광천·결성 등)·예산·덕산": 100,
+   "보령·서산·당진·아산·공주 등": 200
+  },
+  "factory_direct_min_bags": 700,
+  "small_orders": "1톤 배달 가능 여부 전화 확인"
+ },
+ "returns": "남은 자재 반품 가능; 매장 반입은 반품, 현장 회수는 회수비 차감; 조건 전화 확인",
+ "links": {
+  "quote": "https://leegs3413.github.io/hongnam/quote.html?kind=remital&w=5&l=4&t=3&site=홍성",
+  "quote_by_qty": "https://leegs3413.github.io/hongnam/quote.html?item=레미탈&qty=50&view=stmt",
+  "inventory": "https://hongnam-quote.leafy-skink-4266.chatgpt.site/inventory",
+  "inquiry": "https://hongnam-quote.leafy-skink-4266.chatgpt.site/"
+ }
+}
