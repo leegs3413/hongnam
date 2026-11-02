@@ -131,7 +131,7 @@ function calc(){
  if(k==='level'){kg=area*t*(+$('kgLevel').value||0);bag=25;name='자동수평 몰탈';spec='25kg'}
  else{kg=area*t*(+$('kgRemital').value||0);bag=40;name='레미탈';spec='40kg'}
  const need=Math.ceil(kg*(1+loss/100)/bag);
- $('calcOut').textContent=`면적 ${area.toFixed(1)}㎡ × 두께 ${t}${k==='level'?'mm':'cm'} → 약 ${fmt(kg)}kg, 여유 ${loss}% 포함 ${need}포`;
+ $('calcOut').textContent=`면적 ${area.toFixed(1)}㎡ × 두께 ${t}${k==='level'?'mm':'cm'} → 약 ${fmt(kg)}kg, 여유 ${loss}% 포함 ${need}포 (참고용, 현장 상태에 따라 다름)${need>=700?' · 700포 이상은 공장 직송 가능, 별도 견적':''}`;
  return {name,spec,qty:need,price:'',memo:`${w}m×${l}m×${t}${k==='level'?'mm':'cm'}`};
 }
 function render(){
