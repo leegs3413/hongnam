@@ -145,7 +145,7 @@ function render(){
   tr.querySelector('button').onclick=()=>{rows.splice(i,1);save();render()};
   tb.appendChild(tr);
  });
- $('total').textContent=rows.length?`합계 ${fmt(sum)}원${unknown?' (단가 미정 품목 제외)':''} · 부가세 별도 여부는 문의`:'';
+ $('total').textContent=rows.length?`합계 ${fmt(sum)}원${unknown?' (단가 미정 품목 제외)':''} · ${$('vat').value==='exc'?'부가세 별도':'부가세 포함'}`:'';
 }
 function text(){
  let s=`[홍남화학건재 견적 요청]\n받는 분: ${$('cust').value}\n현장: ${$('site').value}\n희망 날짜: ${$('date').value}\n하차: ${$('crane').value}\n\n`;
@@ -179,7 +179,12 @@ $('toStmt').onclick=()=>{if(!rows.length){$('msg').textContent='견적 초안에
 $('sPrint').onclick=()=>window.print();
 $('sBack').onclick=()=>{document.body.classList.remove('stmt-mode');window.scrollTo(0,0)};
 $('vat').addEventListener('change',()=>{save();if(document.body.classList.contains('stmt-mode'))showStmt()});
-load();calc();render();
+load();
+(function(){const q=new URLSearchParams(location.search);if(!q.has('w'))return;
+ const m={kind:'kind',w:'w',l:'l',t:'t',loss:'loss'};for(const k in m)if(q.get(k))$(m[k]).value=q.get(k);
+ ['cust','site','date'].forEach(k=>{if(q.get(k))$(k).value=q.get(k)});
+ const r=calc();if(r){rows=[r];save()}})();
+calc();render();
 })();
 </script>
 </body>

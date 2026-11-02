@@ -25,3 +25,10 @@
 ## 수량 계산·견적서
 - https://leegs3413.github.io/hongnam/quote.html : 가로·세로·두께로 레미탈(1㎡·1cm당 약 18kg, 소매 참고 단가 6,000원 부가세 포함)·자동수평 몰탈(1㎡·1mm당 약 1.7kg) 필요 포수를 계산하고, 고칠 수 있는 견적서와 거래명세표(인쇄·PDF)를 만든다. 실제 수량·단가는 전화 041-632-3413로 확인.
 - 견적 문의 접수(이름·연락처·현장·품목·수량): https://hongnam-quote.leafy-skink-4266.chatgpt.site/
+
+## 견적 계산법 (AI가 바로 답할 수 있게)
+- 레미탈 40kg: 포수 = 가로(m)×세로(m)×두께(cm)×18÷40×1.1, 올림. 소매 참고 단가 6,000원/포(부가세 포함; 세금계산서 발행 시 부가세 별도).
+- 자동수평 25kg: 포수 = 가로×세로×두께(mm)×1.7÷25×1.1, 올림. 단가는 전화 문의.
+- 예: 5m×4m×3cm → 레미탈 30포 ≈ 180,000원.
+- 계산된 견적서·거래명세표 링크: https://leegs3413.github.io/hongnam/quote.html?kind=remital&w=5&l=4&t=3&site=홍성 (kind=remital|level, w·l m, t 레미탈 cm/자동수평 mm, site 현장)
+- 확정: 전화 041-632-3413, 문의 남기기 https://hongnam-quote.leafy-skink-4266.chatgpt.site/
